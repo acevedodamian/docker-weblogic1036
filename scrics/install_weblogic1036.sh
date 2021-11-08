@@ -4,8 +4,8 @@ then
   exit 0
 fi
 
-v_usuario_oracle="$ORACLE_USER"
-v_contrasenya_oracle=$ORACLE_PASSWORD
+#v_usuario_oracle="$ORACLE_USER"
+#v_contrasenya_oracle=$ORACLE_PASSWORD
 
 v_weblogic_user=weblogic
 v_weblogic_password=weblogic01
@@ -16,29 +16,38 @@ v_ruta_dominio=/u01/domains
 v_nou_template=/tmp/$$_nou_template.jar
 v_nombre_dominio=mydomain
 v_cookie=/tmp/$$_cookie
-v_download=http://download.oracle.com/otn/nt/middleware/11g/wls/1036/wls1036_generic.jar
+
+#Se cambia el link cada vez con transfer.sh
+v_download="$WLS_GENERIC_INSTALLER_URL"
+v_download_jdk="$JDK7_INSTALLER_URL"
+
 v_software=/u01/install/wls1036_generic.jar
 v_tmp_silent=/tmp/$$_silent.xml
 
 cd /u01/install
 
 # Descarga de JVM
-curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0 Iceweasel/38.6.0" \
--b 'oraclelicense=accept-dbindex-cookie' \
--OL http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz
+#curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0 Iceweasel/38.6.0" \
+#-b 'oraclelicense=accept-dbindex-cookie' \
+#-OL http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz
 
-v_Site2pstoreToken=`curl -s -A "Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0" -L $v_download | grep site2pstoretoken | awk -Fsite2pstoretoken {'print $2'}|awk -F\= {'print  $2'}|awk -F\" {'print $2'}`
+#v_Site2pstoreToken=`curl -s -A "Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0" -L $v_download | grep site2pstoretoken | awk -Fsite2pstoretoken {'print $2'}|awk -F\= {'print  $2'}|awk -F\" {'print $2'}`
 
-curl -s -A "Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0 Iceweasel/38.6.0"  \
--d 'ssousername='$v_usuario_oracle'&password='$v_contrasenya_oracle'&site2pstoretoken='$v_Site2pstoreToken \
--o /dev/null \
-https://login.oracle.com/sso/auth -c $v_cookie
+#curl -s -A "Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0 Iceweasel/38.6.0"  \
+#-d 'ssousername='$v_usuario_oracle'&password='$v_contrasenya_oracle'&site2pstoretoken='$v_Site2pstoreToken \
+#-o /dev/null \
+#https://login.oracle.com/sso/auth -c $v_cookie
 
-echo '.oracle.com	TRUE	/	FALSE	0	oraclelicense	accept-dbindex-cookie' >> $v_cookie
+#echo '.oracle.com	TRUE	/	FALSE	0	oraclelicense	accept-dbindex-cookie' >> $v_cookie
 
-curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0 Iceweasel/38.6.0" \
--b $v_cookie \
--OL $v_download
+#curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0 Iceweasel/38.6.0" \
+#-b $v_cookie \
+#-OL $v_download
+
+echo 'Downloading file ... ' $v_download
+curl $v_download -o wls1036_generic.jar
+echo 'Downloading file ... ' $v_download_jdk
+curl $v_download_jdk -o jdk-7u79-linux-x64.tar.gz
 
 #Instalacion JVM
 tar -xzvf /u01/install/jdk-7u79-linux-x64.tar.gz -C /u01/install
