@@ -1,8 +1,8 @@
-Run weblogic 10.3.6 with Docker
+#Run Oracle Weblogic 11g 10.3.6 with Docker
  
 #Download files from Oracle and get URL with transfer.sh
- #curl --upload-file ./wls1036_generic.jar https://transfer.sh/wls1036_generic.jar
- #curl --upload-file ./jdk-7u79-linux-x64.tar.gz.jar https://transfer.sh/jdk-7u79-linux-x64.tar.gz.jar
+#curl --upload-file ./wls1036_generic.jar https://transfer.sh/wls1036_generic.jar
+#curl --upload-file ./jdk-7u79-linux-x64.tar.gz.jar https://transfer.sh/jdk-7u79-linux-x64.tar.gz.jar
 
 git clone https://github.com/acevedodamian/docker-weblogic1036.git
 
