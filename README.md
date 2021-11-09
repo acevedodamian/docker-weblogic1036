@@ -28,4 +28,4 @@ docker run -d -ti -p 7001:7001 myweblogic1036
 
 Console:
 http://localhost:7001/console/
-weblogic / weblogic01
+(weblogic / weblogic01)
