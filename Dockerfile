@@ -1,8 +1,8 @@
 FROM oraclelinux:6.8
-MAINTAINER Jose Legido "jose@legido.com"
+MAINTAINER Damian "acevedodamian@gmail.com"
 
-ARG ORACLE_USER
-ARG ORACLE_PASSWORD
+ARG WLS_GENERIC_INSTALLER_URL
+ARG JDK7_INSTALLER_URL
 
 # USUARIS
 RUN groupadd -g 1001 weblogic && useradd -u 1001 -g weblogic weblogic
@@ -30,7 +30,7 @@ USER weblogic
 
 ENV USER_MEM_ARGS="-Djava.security.egd=file:/dev/./urandom"
 
-RUN cd /u01/install && /u01/install/install_weblogic1036.sh $ORACLE_USER $ORACLE_PASSWORD
+RUN cd /u01/install && /u01/install/install_weblogic1036.sh $WLS_GENERIC_INSTALLER_URL $JDK7_INSTALLER_URL
 
 RUN cd /u01/install && /u01/scripts/start_AdminServer.sh && ./create_domain.sh create_domain.ini /u01/middleware1036/wlserver_10.3/server/bin/setWLSEnv.sh
 

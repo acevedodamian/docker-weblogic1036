@@ -1,8 +1,8 @@
 #!/bin/bash
-if [ -z "$ORACLE_USER" ]
-then
-  exit 0
-fi
+#if [ -z "$ORACLE_USER" ]
+#then
+#  exit 0
+#fi
 
 #v_usuario_oracle="$ORACLE_USER"
 #v_contrasenya_oracle=$ORACLE_PASSWORD
@@ -45,9 +45,9 @@ cd /u01/install
 #-OL $v_download
 
 echo 'Downloading file ... ' $v_download
-curl $v_download -o wls1036_generic.jar
+curl $v_download -k -o wls1036_generic.jar
 echo 'Downloading file ... ' $v_download_jdk
-curl $v_download_jdk -o jdk-7u79-linux-x64.tar.gz
+curl $v_download_jdk -k -o jdk-7u79-linux-x64.tar.gz
 
 #Instalacion JVM
 tar -xzvf /u01/install/jdk-7u79-linux-x64.tar.gz -C /u01/install
